@@ -78,6 +78,7 @@ public:
 	{ }
 
 	void eva(machine_config &config);
+	virtual ioport_constructor device_input_ports() const override;
 
 protected:
 	virtual void machine_start() override;
@@ -157,11 +158,20 @@ u8 eva11_state::read_k()
 *******************************************************************************/
 
 static INPUT_PORTS_START( eva24 )
+	PORT_START("SENSORS")
+
+	PORT_START("IN.0") 
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD )  PORT_CODE(KEYCODE_1) PORT_NAME("left_door_ajar")  
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( eva11 )
 INPUT_PORTS_END
 
+
+ioport_constructor eva24_state::device_input_ports() const
+{
+	return INPUT_PORTS_NAME(eva24);
+}
 
 
 /*******************************************************************************
@@ -234,7 +244,6 @@ ROM_START( eva11 )
 ROM_END
 
 } // anonymous namespace
-
 
 
 /*******************************************************************************
